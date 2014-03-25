@@ -1,0 +1,18 @@
+{
+  "name": "rave-wire",
+  "version": "0.0.1",
+  "description": "RaveJS extension for wire.js",
+  "main": "rave",
+  "rave": "rave",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "rave",
+    "cujo",
+    "wire",
+    "ioc"
+  ],
+  "author": "brian@hovercraftstudios.com",
+  "license": "MIT"
+}
