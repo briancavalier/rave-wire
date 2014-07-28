@@ -7,6 +7,10 @@
   "description": "RaveJS extension for wire.js",
   "main": "rave",
   "rave": "rave",
+  "dependencies": {
+    "wire": "~0.10",
+    "rave-curl-domReady": "~0.2"
+  },
   "moduleType": [
     "node"
   ],
