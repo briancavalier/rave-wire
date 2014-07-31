@@ -4,8 +4,8 @@
 
 var wire = require('wire');
 var defaultPlugins = require('wire/lib/plugin/defaultPlugins');
-
 var domready = require('domready');
+var es5Transform = require('rave/lib/es5Transform');
 
 var defaultDebugTimeout = 1e4;
 var debugPlugin = 'wire/debug';
@@ -46,42 +46,19 @@ function createLoadExtension(context) {
 	// within the wire package.
 	return [
 		{
-			package: 'domReady!',
-			pattern: /^domReady!$/,
+			package: 'wire',
+			pattern: /wire\/domReady$/,
 			hooks: {
-				normalize: normalize,
-				locate: locate,
-				fetch: fetch,
-				translate: translate,
 				instantiate: instantiate
 			}
 		}
 	];
 }
 
-// basically, bypass the loader for most of these hooks
-function normalize (name, refName) {
-	return name;
-}
-function locate (load) {
-	return load.name;
-}
-function fetch (load) {
-	return '';
-}
-function translate (load) {
-	return '';
-}
-
 function instantiate(load) {
-	// wait for dom-ready before returning empty module
-	return new Promise(function(resolve) {
-		domready(function() {
-			resolve({
-				execute: function() {
-					return new Module({});
-				}
-			});
-		})
-	});
+	return {
+		execute: function () {
+			return new Module(es5Transform.toLoader(domready));
+		}
+	};
 }
