@@ -49,11 +49,14 @@ function createLoadExtension(context) {
 			package: 'wire',
 			pattern: /wire\/domReady$/,
 			hooks: {
+				fetch: fetch,
 				instantiate: instantiate
 			}
 		}
 	];
 }
+
+function fetch (load) { return ''; }
 
 function instantiate(load) {
 	return {
