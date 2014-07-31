@@ -23,7 +23,7 @@ function injectDebug() {
 
 function WireRave(raveContext) {
 	this.raveContext = raveContext;
-	this.load = createLoadExtension(context);
+	this.load = createLoadExtension(raveContext);
 }
 
 WireRave.prototype.main = function() {
@@ -46,13 +46,31 @@ function createLoadExtension(context) {
 	// within the wire package.
 	return [
 		{
-			package: 'wire',
+			package: 'domReady!',
 			pattern: /^domReady!$/,
 			hooks: {
+				normalize: normalize,
+				locate: locate,
+				fetch: fetch,
+				translate: translate,
 				instantiate: instantiate
 			}
 		}
 	];
+}
+
+// basically, bypass the loader for most of these hooks
+function normalize (name, refName) {
+	return name;
+}
+function locate (load) {
+	return load.name;
+}
+function fetch (load) {
+	return '';
+}
+function translate (load) {
+	return '';
 }
 
 function instantiate(load) {
