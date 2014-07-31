@@ -5,6 +5,8 @@
 var wire = require('wire');
 var defaultPlugins = require('wire/lib/plugin/defaultPlugins');
 
+var domready = require('domready');
+
 var defaultDebugTimeout = 1e4;
 var debugPlugin = 'wire/debug';
 
@@ -21,6 +23,7 @@ function injectDebug() {
 
 function WireRave(raveContext) {
 	this.raveContext = raveContext;
+	this.load = createLoadExtension(context);
 }
 
 WireRave.prototype.main = function() {
@@ -38,3 +41,29 @@ WireRave.prototype.main = function() {
 	return p;
 };
 
+function createLoadExtension(context) {
+	// Create a load extension for only require('domReady!') from
+	// within the wire package.
+	return [
+		{
+			package: 'wire',
+			pattern: /^domReady!$/,
+			hooks: {
+				instantiate: instantiate
+			}
+		}
+	];
+}
+
+function instantiate(load) {
+	// wait for dom-ready before returning empty module
+	return new Promise(function(resolve) {
+		domready(function() {
+			resolve({
+				execute: function() {
+					return new Module({});
+				}
+			});
+		})
+	});
+}

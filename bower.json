@@ -1,6 +1,6 @@
 {
   "name": "rave-wire",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "authors": [
     "Brian Cavalier <brian@hovercraftstudios.com>"
   ],
@@ -10,6 +10,11 @@
   "moduleType": [
     "node"
   ],
+  "dependencies": {
+    "rave": "~0.2",
+    "wire": "~0.10",
+    "domready": "~1"
+  },
   "keywords": [
     "rave",
     "cujo",
