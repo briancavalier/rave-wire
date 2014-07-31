@@ -1,9 +1,16 @@
 {
   "name": "rave-wire",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "RaveJS extension for wire.js",
   "main": "rave",
   "rave": "rave",
+  "peerDependencies": {
+    "rave": "~0.2",
+    "wire": "~0.10"
+  },
+  "dependencies": {
+    "domready": "~1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -4,6 +4,8 @@
 
 var wire = require('wire');
 var defaultPlugins = require('wire/lib/plugin/defaultPlugins');
+var domready = require('domready');
+var es5Transform = require('rave/lib/es5Transform');
 
 var defaultDebugTimeout = 1e4;
 var debugPlugin = 'wire/debug';
@@ -21,6 +23,7 @@ function injectDebug() {
 
 function WireRave(raveContext) {
 	this.raveContext = raveContext;
+	this.load = createLoadExtension(raveContext);
 }
 
 WireRave.prototype.main = function() {
@@ -38,3 +41,29 @@ WireRave.prototype.main = function() {
 	return p;
 };
 
+function createLoadExtension(context) {
+	// Create a load extension for only require('domReady!') from
+	// within the wire package.
+	return [
+		{
+			package: 'wire',
+			pattern: /wire\/domReady$/,
+			hooks: {
+				locate: noop,
+				fetch: noop,
+				translate: noop,
+				instantiate: instantiate
+			}
+		}
+	];
+}
+
+function noop (load) { return ''; }
+
+function instantiate(load) {
+	return {
+		execute: function () {
+			return new Module(es5Transform.toLoader(domready));
+		}
+	};
+}
