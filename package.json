@@ -3,7 +3,14 @@
   "version": "0.1.0",
   "description": "RaveJS extension for wire.js",
   "main": "rave",
-  "rave": "rave",
+  "rave": {
+	  "extension": "rave",
+	  "overrides": {
+		  "wire": {
+			  "moduleType": [ "amd" ]
+		  }
+	  }
+  },
   "peerDependencies": {
     "rave": "~0.2",
     "wire": "~0.10"
