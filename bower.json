@@ -11,7 +11,7 @@
     "node"
   ],
   "dependencies": {
-    "rave": "~0.2",
+    "rave": "~0.2.1",
     "wire": "~0.10",
     "domready": "~1"
   },
