@@ -29,8 +29,11 @@ function WireRave(raveContext) {
 WireRave.prototype.main = function() {
 	var rc = this.raveContext;
 	var app = rc.app;
+	var env = rc.env;
 
-	var p = rc.debug || rc.wireDebug ? injectDebug() : Promise.resolve();
+	var p = env.debug || env.wire && env.wire.debug
+		? injectDebug()
+		: Promise.resolve();
 
 	if(app && app.main) {
 		p = p.then(function() {

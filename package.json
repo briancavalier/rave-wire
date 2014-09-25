@@ -1,6 +1,6 @@
 {
   "name": "rave-wire",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "RaveJS extension for wire.js",
   "main": "rave",
   "rave": {
@@ -12,7 +12,7 @@
 	  }
   },
   "peerDependencies": {
-    "rave": "~0.2.1",
+    "rave": "~0.4",
     "wire": "~0.10"
   },
   "dependencies": {
